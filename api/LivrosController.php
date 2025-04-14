@@ -1,5 +1,4 @@
 <?php
-// src/Controllers/LivroController.php
 require_once __DIR__ . '/Route.php';
 
 header('Content-Type: application/json');
@@ -24,24 +23,40 @@ class Livro
     }
 }
 
+
+
+
 class LivroController
 {
-    #[Route('/livros', method: 'GET')]
-    public function listarLivros()
+
+    #[Route('/livros/{id}', method: 'GET')]
+    public function obterLivro(int $id)
     {
-        echo json_encode(['livros' => ['Dom Casmurro', '1984', 'O Hobbit']]);
+
+        $livros = [
+            new Livro('Dom Casmurro', 'Machado de Assis'),
+            new Livro('1984', 'George Orwell'),
+            new Livro('O Hobbit', 'J.R.R. Tolkien')
+        ];
+
+
+        $id--; // ajusta para índice 0-based
+        if (isset($livros[$id])) {
+            echo json_encode($livros[$id], JSON_UNESCAPED_UNICODE);
+        } else {
+            http_response_code(404);
+            echo json_encode(['erro' => 'Livro não encontrado']);
+        }
     }
 
 
-    #[Route('/livros/todos', method: 'GET')]
+    #[Route('/livros', method: 'GET')]
     public function listarTodosLivros()
     {
         $livros = [
             new Livro('Dom Casmurro', 'Machado de Assis'),
             new Livro('1984', 'George Orwell'),
-            new Livro('O Hobbit', 'J.R.R. Tolkien'),
-            new Livro('Grande Sertão: Veredas', 'João Guimarães Rosa'),
-            new Livro('A Revolução dos Bichos', 'George Orwell')
+            new Livro('O Hobbit', 'J.R.R. Tolkien')
         ];
 
         echo json_encode($livros, JSON_UNESCAPED_UNICODE);

@@ -33,8 +33,33 @@ foreach ($controllerClasses as $class) {
             $attributes = $method->getAttributes(Route::class);
             foreach ($attributes as $attribute) {
                 $route = $attribute->newInstance();
-                if ($route->path === $requestPath && $requestMethod === $route->method) {
-                    $method->invoke($controller);
+                $paramNames = [];
+                $pattern = preg_replace_callback('#\{(\w+)\}#', function ($matches) use (&$paramNames) {
+                    $paramNames[] = $matches[1];
+                    return '([^/]+)';
+                }, $route->path);
+                $pattern = "#^" . $pattern . "$#";
+
+                if (preg_match($pattern, $requestPath, $matches) && $requestMethod === $route->method) {
+                    array_shift($matches); // Remove o match completo
+                    $params = [];
+
+                    $refParams = $method->getParameters();
+                    foreach ($refParams as $index => $param) {
+                        $type = $param->getType()?->getName();
+                        $value = $matches[$index] ?? null;
+
+                        if ($type === 'int') {
+                            if (!is_numeric($value)) {
+                                continue 2; // pula para a próxima rota
+                            }
+                            $params[] = (int)$value;
+                        } else {
+                            $params[] = $value;
+                        }
+                    }
+
+                    $method->invokeArgs($controller, $params);
                     exit;
                 }
             }
