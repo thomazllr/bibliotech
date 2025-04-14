@@ -26,14 +26,14 @@ class Livro
 
 class LivroController
 {
-    #[Route('/livros', methods: ['GET'])]
+    #[Route('/livros', method: 'GET')]
     public function listarLivros()
     {
         echo json_encode(['livros' => ['Dom Casmurro', '1984', 'O Hobbit']]);
     }
 
 
-    #[Route('/livros/todos', methods: ['GET'])]
+    #[Route('/livros/todos', method: 'GET')]
     public function listarTodosLivros()
     {
         $livros = [
@@ -44,6 +44,6 @@ class LivroController
             new Livro('A Revolução dos Bichos', 'George Orwell')
         ];
 
-        echo json_encode(['livros' => $livros], JSON_UNESCAPED_UNICODE);
+        echo json_encode($livros, JSON_UNESCAPED_UNICODE);
     }
 }

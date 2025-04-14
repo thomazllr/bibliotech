@@ -4,11 +4,11 @@
 class Route
 {
     public string $path;
-    public array $methods;
+    public string $method;
 
-    public function __construct(string $path, array $methods = ['GET'])
+    public function __construct(string $path, string $method = 'GET')
     {
         $this->path = $path;
-        $this->methods = $methods;
+        $this->method = $method;
     }
 }

@@ -33,7 +33,7 @@ foreach ($controllerClasses as $class) {
             $attributes = $method->getAttributes(Route::class);
             foreach ($attributes as $attribute) {
                 $route = $attribute->newInstance();
-                if ($route->path === $requestPath && in_array($requestMethod, $route->methods)) {
+                if ($route->path === $requestPath && $requestMethod === $route->method) {
                     $method->invoke($controller);
                     exit;
                 }
