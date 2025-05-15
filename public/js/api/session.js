@@ -4,6 +4,7 @@ import { API_BASE } from "../config.js";
 export async function verificarSessao() {
   const response = await fetch(`${API_BASE}/session-status.php`, {
     method: "GET",
+    credentials: "include", // MUITO IMPORTANTE
     headers: {
       "Content-Type": "application/json",
     },

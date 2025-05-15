@@ -6,6 +6,7 @@ export async function login(email, senha) {
     headers: {
       "Content-Type": "application/json",
     },
+    credentials: "include",
     body: JSON.stringify({ email, senha }),
   });
 
@@ -25,7 +26,7 @@ export async function cadastrarUsuario(nome, email, senha) {
     body: JSON.stringify({ nome, email, senha }),
   });
 
-    const responseData = await response.json();
+  const responseData = await response.json();
 
   if (!response.ok) {
     // Lança a mensagem de erro retornada pelo backend
