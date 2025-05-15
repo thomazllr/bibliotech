@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../db/Database.php';
 require_once __DIR__ . '/../dao/CarrinhoDAO.php';
-
+require_once __DIR__ . '/cors.php';
 // Enable error reporting for debugging
 ini_set('display_errors', 0);
 error_reporting(E_ALL);
@@ -18,7 +18,7 @@ try {
     // Get a fresh connection for this request
     $pdo = Database::getInstance()->getConnection();
     $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false); // Ensure this is set
-    
+
     $dao = new CarrinhoDAO($pdo);
     $method = $_SERVER['REQUEST_METHOD'];
 
@@ -156,10 +156,10 @@ try {
     if (isset($stmt) && $stmt instanceof PDOStatement) {
         $stmt->closeCursor();
     }
-    
+
     $responseCode = 500;
     $responseData = [
-        'status' => 'error', 
+        'status' => 'error',
         'message' => 'Erro na base de dados: ' . $e->getMessage(),
         'code' => $e->getCode(),
         'file' => $e->getFile(),
@@ -168,7 +168,7 @@ try {
 } catch (Exception $e) {
     $responseCode = 500;
     $responseData = [
-        'status' => 'error', 
+        'status' => 'error',
         'message' => 'Erro na requisição: ' . $e->getMessage(),
         'trace' => $e->getTraceAsString()
     ];

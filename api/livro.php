@@ -3,7 +3,7 @@ require_once __DIR__ . '/../db/Database.php';
 require_once __DIR__ . '/../dao/LivroDAO.php';
 require_once __DIR__ . '/../dao/EditoraDAO.php';
 require_once __DIR__ . '/../dao/GeneroDAO.php';
-
+require_once __DIR__ . '/cors.php';
 // Enable error reporting for debugging
 ini_set('display_errors', 0);
 error_reporting(E_ALL);
@@ -20,7 +20,7 @@ try {
     // Get a fresh connection for this request
     $pdo = Database::getInstance()->getConnection();
     $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false); // Ensure this is set
-    
+
     $dao = new LivroDAO($pdo);
     $editoraDAO = new EditoraDAO($pdo);
     $generoDAO = new GeneroDAO($pdo);
@@ -38,14 +38,14 @@ try {
                     $responseData = ['status' => 'error', 'message' => 'Editora inválida.'];
                     break;
                 }
-                
+
                 // Validate genero_id
                 if (!$generoDAO->getGeneroById($data['genero_id'])) {
                     $responseCode = 400;
                     $responseData = ['status' => 'error', 'message' => 'Gênero inválido.'];
                     break;
                 }
-                
+
                 $livro = $dao->createBook($data['titulo'], $data['autor'], $data['genero_id'], $data['preco'], $data['editora_id'], $data['descricao'], $data['imagem_url']);
                 if ($livro) {
                     $responseCode = 201;
@@ -78,7 +78,7 @@ try {
                 $ordem = isset($_GET['ordem']) && in_array(strtoupper($_GET['ordem']), ['ASC', 'DESC']) ? strtoupper($_GET['ordem']) : 'DESC';
 
                 $livros = $dao->searchBooks($termo, $genero_id, $ordem);
-                
+
                 $responseCode = 200;
                 $responseData = ['status' => 'success', 'data' => $livros];
             }
@@ -88,7 +88,7 @@ try {
             if (isset($_GET['id'])) {
                 $id = intval($_GET['id']);
                 $deleted = $dao->deleteBook($id);
-                
+
                 if ($deleted) {
                     $responseCode = 200;
                     $responseData = ['status' => 'success', 'message' => 'Livro excluído com sucesso!'];
@@ -112,14 +112,14 @@ try {
                     $responseData = ['status' => 'error', 'message' => 'Editora inválida.'];
                     break;
                 }
-                
+
                 // Validate genero_id
                 if (!$generoDAO->getGeneroById($data['genero_id'])) {
                     $responseCode = 400;
                     $responseData = ['status' => 'error', 'message' => 'Gênero inválido.'];
                     break;
                 }
-                
+
                 $updated = $dao->updateBook(
                     $data['id'],
                     $data['titulo'],
@@ -143,7 +143,7 @@ try {
                 $responseData = ['status' => 'error', 'message' => 'Todos os campos, incluindo o ID, são obrigatórios.'];
             }
             break;
-            
+
         default:
             $responseCode = 405;
             $responseData = ['status' => 'error', 'message' => 'Método HTTP não suportado.'];
@@ -154,10 +154,10 @@ try {
     if (isset($stmt) && $stmt instanceof PDOStatement) {
         $stmt->closeCursor();
     }
-    
+
     $responseCode = 500;
     $responseData = [
-        'status' => 'error', 
+        'status' => 'error',
         'message' => 'Erro na base de dados: ' . $e->getMessage(),
         'code' => $e->getCode(),
         'file' => $e->getFile(),
@@ -166,7 +166,7 @@ try {
 } catch (Exception $e) {
     $responseCode = 500;
     $responseData = [
-        'status' => 'error', 
+        'status' => 'error',
         'message' => 'Erro na requisição: ' . $e->getMessage(),
         'trace' => $e->getTraceAsString()
     ];

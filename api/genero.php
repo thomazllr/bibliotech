@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../db/Database.php';
 require_once __DIR__ . '/../dao/GeneroDAO.php';
-
+require_once __DIR__ . '/cors.php';
 header('Content-Type: application/json');
 
 $pdo = Database::getInstance()->getConnection();

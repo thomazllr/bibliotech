@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../db/Database.php';
 require_once __DIR__ . '/../dao/EditoraDAO.php';
-
+require_once __DIR__ . '/cors.php';
 // Enable error reporting for debugging
 ini_set('display_errors', 0);
 error_reporting(E_ALL);
@@ -18,7 +18,7 @@ try {
     // Get a fresh connection for this request
     $db = Database::getInstance()->getConnection();
     $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false); // Ensure this is set
-    
+
     $editoraDAO = new EditoraDAO($db);
 
     // Get request method
@@ -46,13 +46,13 @@ try {
         case 'POST':
             // Create a new publisher
             $data = json_decode(file_get_contents('php://input'), true);
-            
+
             if (empty($data['nome'])) {
                 $responseCode = 400;
                 $responseData = ['success' => false, 'message' => 'Nome da editora é obrigatório'];
                 break;
             }
-            
+
             $id = $editoraDAO->createEditora($data['nome']);
             $responseData = ['success' => true, 'message' => 'Editora cadastrada com sucesso', 'id' => $id];
             break;
@@ -60,13 +60,13 @@ try {
         case 'PUT':
             // Update an existing publisher
             $data = json_decode(file_get_contents('php://input'), true);
-            
+
             if (empty($data['id']) || empty($data['nome'])) {
                 $responseCode = 400;
                 $responseData = ['success' => false, 'message' => 'ID e nome da editora são obrigatórios'];
                 break;
             }
-            
+
             $result = $editoraDAO->updateEditora($data['id'], $data['nome']);
             if ($result) {
                 $responseData = ['success' => true, 'message' => 'Editora atualizada com sucesso'];
@@ -79,13 +79,13 @@ try {
         case 'DELETE':
             // Delete a publisher
             $data = json_decode(file_get_contents('php://input'), true);
-            
+
             if (empty($data['id'])) {
                 $responseCode = 400;
                 $responseData = ['success' => false, 'message' => 'ID da editora é obrigatório'];
                 break;
             }
-            
+
             $result = $editoraDAO->deleteEditora($data['id']);
             $responseData = ['success' => true, 'message' => 'Editora removida com sucesso'];
             break;
@@ -100,7 +100,7 @@ try {
     if (isset($stmt) && $stmt instanceof PDOStatement) {
         $stmt->closeCursor();
     }
-    
+
     $responseCode = 500;
     $responseData = [
         'success' => false,
@@ -134,4 +134,4 @@ http_response_code($responseCode);
 
 // Output the JSON response
 echo json_encode($responseData);
-exit; 
+exit;
