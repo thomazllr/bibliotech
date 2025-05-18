@@ -3,11 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BiblioTech - Detalhes do Livro</title>
+    <title>BiblioTech</title>
     <link rel="stylesheet" href="../public/css/main.css" />
-    <link rel="stylesheet" href="../public/css/page/detalhes.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
   </head>
+
   <body>
+    <!-- Header -->
     <header class="header">
       <a href="home.html" class="logo heading-primary">BiblioTech</a>
 
@@ -17,16 +26,7 @@
 
       <nav class="main-nav">
         <ul class="main-nav-list">
-          <!-- Select para filtrar por gêneros -->
-          <li>
-            <select id="filter-genres" class="filter-genres genero">
-              <option value="">Todos os Gêneros</option>
-            </select>
-          </li>
-
-          <li><input type="text" placeholder="Pesquisar Livro..." /></li>
-          <li><button class="btn">Buscar</button></li>
-          <li><a href="generos.html" class="main-nav-link navegacao">Gêneros</a></li>
+          <li><a href="#" class="main-nav-link navegacao">Gêneros</a></li>
           <li><a href="#" class="main-nav-link navegacao">Catálogo</a></li>
 
           <li>
@@ -94,80 +94,32 @@
       </nav>
     </header>
 
+    <!-- Destaques -->
     <main class="main-content">
-      <div class="livro-container">
-        <div class="capa-container">
-          <div class="capa-livro">
-            <img src="" alt="" />
+        <section class="section-hero">
+          <div class="container" id="generos-container">
+            <!-- Os gêneros e livros serão carregados aqui -->
           </div>
-        </div>
-        <div class="detalhes-container">
-          <h1 class="titulo-livro"></h1>
-          <p class="autor"></p>
-
-          <div class="opcoes-compra">
-            <button class="opcao ativo" onclick="selecionarOpcao(this)">
-              E-Book<br />
-              Disponível<br />
-              instantaneamente
-            </button>
-            <button class="opcao" onclick="selecionarOpcao(this)">
-              Livro Normal<br />
-              Envio por Correios
-            </button>
-          </div>
-
-          <div class="preco"></div>
-
-          <div class="secao">
-            <h2 class="secao-titulo">Descrição</h2>
-            <div class="secao-conteudo descricao"></div>
-          </div>
-
-          <div class="secao">
-            <h2 class="secao-titulo">Informações</h2>
-            <div class="secao-conteudo">
-              <div class="info-item">
-                <span class="info-label">Editora:</span>
-                <span class="editora"></span>
-              </div>
-              <div class="info-item">
-                <span class="info-label">Publicação:</span>
-                <span class="publicacao"></span>
-              </div>
-              <div class="info-item">
-                <span class="info-label">Gênero:</span>
-                <span class="genero-nome"></span>
-              </div>
-              <div class="info-item">
-                <span class="info-label">Idioma:</span>
-                <span class="idioma"></span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Modal de feedback para o carrinho -->
-      <div id="cadastroModal" class="modal" style="display: none">
-        <div class="modal-content">
-          <div class="modal-icon"></div>
-          <h2 id="modal-title"></h2>
-          <p class="modal-message" id="modal-message"></p>
-          <button class="modal-close" id="modal-close">
-            Ir para o carrinho
-          </button>
-        </div>
-      </div>
-    </main>
-
+        </section>
+      </main>
+    <!-- Rodapé -->
     <footer>© 2025 - Todos os direitos reservados.</footer>
 
+    <!-- Modal de Aviso -->
+    <div id="cadastroModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-icon"></div>
+        <h2 class="modal-title" id="modal-title"></h2>
+        <p class="modal-message" id="modal-message">
+         
+        </p>
+        <button class="modal-close" id="modal-close"></button>
+      </div>
+    </div>
+
     <script src="../public/js/navigation.js"></script>
-    <script type="module" src="../public/js/pages/detalhes.js"></script>
     <script type="module" src="../public/js/status.js"></script>
     <script type="module" src="../public/js/profile-menu.js"></script>
-    <script type="module" src="../public/js/pages/search-books.js"></script>
     <script type="module" src="../public/js/pages/genero.js"></script>
     <script type="module" src="../public/js/pages/carrinho.js"></script>
   </body>

@@ -94,6 +94,13 @@ O **BiblioTech** é uma livraria digital que permite a venda de livros digitais 
 - O sistema deve permitir que administradores removam livros do catálogo.
 - O sistema deve permitir que administradores categorizem livros em gêneros e coleções.
 
+### RF12: Lista de desejos
+
+- O sistema deve permitir que o usuário adicione livros à sua lista de desejos.
+- O sistema deve permitir que o usuário remova livros da sua lista de desejos.
+- O sistema deve exibir todos os livros salvos na lista de desejos do usuário.
+- O sistema deve refletir as alterações feitas na lista de desejos em tempo real, como adições ou remoções.
+
 ## User Stories
 
 #### **RF01: Cadastro do Usuário**
@@ -230,6 +237,22 @@ Assim, consigo **excluir** conteúdos desatualizados ou que não devem mais ser 
 
 ![alt text](prototipos/administrador.png)
 
+---
+
+#### RF12: Lista de Desejos
+
+**Eu, como usuário, desejo adicionar livros à minha lista de desejos.**  
+Assim, posso salvar livros que me interessam para acessá-los facilmente no futuro.
+
+**Eu, como usuário, desejo remover livros da minha lista de desejos.**  
+Para isso, devo poder acessar minha lista de desejos e excluir os livros que não quero mais manter.
+
+**Eu, como usuário, desejo visualizar todos os livros salvos na minha lista de desejos.**  
+Assim, posso acessar uma página dedicada onde todos os livros salvos são exibidos de forma organizada.
+
+**Eu, como usuário, desejo que a lista de desejos seja atualizada em tempo real.**  
+Assim, ao adicionar ou remover livros, o sistema deve refletir imediatamente as alterações na interface.
+
 ## Iterações
 ---
 
@@ -270,17 +293,20 @@ _Requisitos_:
 
 [Acesse o relatório](relatorios/iteracao-2.md)
 
-### Iteração 3 - Finalização do Pedido e Gerenciamento de Perfil com Histórico de Pedidos
+---
 
-_Valor_: Proporcionar uma experiência completa de compra, permitindo que os usuários finalizem pedidos e acompanhem seu histórico de compras. Além disso, oferecer funcionalidades para gerenciar o perfil e visualizar informações pessoais.
+### Iteração 3 - Finalização do Pedido e Gerenciamento de Perfil com Histórico de Pedidos e Lista de desejos
 
-_Objetivo_: Implementar as funcionalidades de finalização de pedidos e gerenciamento de perfil, incluindo o histórico de pedidos, para melhorar a experiência do usuário e garantir que ele tenha acesso às informações de suas compras e dados pessoais.
+_Valor_: Proporcionar uma experiência completa de compra, permitindo que os usuários finalizem pedidos, acompanhem seu histórico de compras e gerenciem suas listas de desejos. Além disso, oferecer funcionalidades para gerenciar o perfil e visualizar informações pessoais.
+
+_Objetivo_: Implementar as funcionalidades de finalização de pedidos e gerenciamento de perfil, incluindo o histórico de pedidos e a exibição dos livros salvos na lista de desejos. Isso melhora a experiência do usuário, garantindo que ele tenha acesso às informações de suas compras, dados pessoais e livros de interesse.
 
 
 _Requisitos_:
 
 - RF07 - Finalização do Pedido
 - RF08 - Gerenciamento de Perfil
+- RF12 - Lista de desejos
 
 [Acesse o relatório](relatorios/iteracao-3.md)
 

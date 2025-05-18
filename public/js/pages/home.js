@@ -1,12 +1,7 @@
 import { getBooks } from "../api/livro.js";
 import { renderBooks, renderSkeletons } from "../utils/renderBooks.js";
-import {
-  getListaDesejos,
-  adicionarLivroListaDesejos,
-  removerLivroListaDesejos
-} from "../api/lista-desejos.js";
-import { obterUserId } from "../utils/auth-utils.js";
-import { mostrarModalPadrao } from "../utils/modal-utils.js";
+import { carregarListaDesejos, configurarBotoesFavoritos } from "../utils/wishlist-utils.js";
+import { showToast } from "../utils/toast.js";
 
 // TOAST DE BOAS-VINDAS
 document.addEventListener("DOMContentLoaded", () => {
@@ -17,21 +12,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // MAIN
 document.addEventListener("DOMContentLoaded", async () => {
-    // 🔄 Recarrega a página se voltar do histórico
-    window.addEventListener("pageshow", (event) => {
+  // 🔄 Recarrega a página se voltar do histórico
+  window.addEventListener("pageshow", async (event) => {
     if (event.persisted || performance.getEntriesByType("navigation")[0].type === "back_forward") {
-        location.reload();
+      try {
+        const favoritos = await carregarListaDesejos();
+        configurarBotoesFavoritos(favoritos, ".btn-favorito");
+      } catch (error) {
+        console.error("Erro ao atualizar a lista de desejos ao voltar:", error);
+      }
     }
-    });
-
+  });
 
   const gridContainer = document.querySelector(".grid--4-cols");
   const searchInput = document.querySelector(".main-nav-list input");
   const modal = document.getElementById("cadastroModal");
   const modalClose = document.getElementById("modal-close");
-
-  const userId = await obterUserId();
-
 
   if (modalClose) {
     modalClose.addEventListener("click", () => {
@@ -60,69 +56,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         renderBooks(gridContainer, livros);
 
-        document.dispatchEvent(
-          new CustomEvent("livrosRenderizados", {
-            detail: { userId },
-          })
-        );
+        // Carregar lista de desejos
+        const favoritos = await carregarListaDesejos();
 
-        if (userId) {
-          try {
-            const resposta = await getListaDesejos(userId);
-            const lista = resposta.data || [];
-            const favoritos = new Set(lista.map(id => parseInt(id)));
-
-            document.querySelectorAll(".btn-favorito").forEach((btn) => {
-              const livroId = parseInt(btn.dataset.id);
-
-              const atualizarBotao = () => {
-                if (favoritos.has(livroId)) {
-                  btn.classList.add("salvo");
-                  btn.textContent = "❌";
-                  btn.title = "Remover da Lista de Desejos";
-                } else {
-                  btn.classList.remove("salvo");
-                  btn.textContent = "💙";
-                  btn.title = "Salvar na Lista de Desejos";
-                }
-              };
-
-              atualizarBotao();
-
-              btn.addEventListener("click", async () => {
-                if (favoritos.has(livroId)) {
-                  const res = await removerLivroListaDesejos(livroId);
-                  if (res.status === "success") {
-                    favoritos.delete(livroId);
-                    atualizarBotao();
-                    showToast("Removido da lista de desejos", "info");
-                  }
-                } else {
-                  const res = await adicionarLivroListaDesejos(livroId);
-                  if (res.status === "success") {
-                    favoritos.add(livroId);
-                    atualizarBotao();
-                    showToast("Adicionado à lista de desejos!", "success");
-                  }
-                }
-              });
-            });
-          } catch (err) {
-            console.error("Erro ao gerenciar favoritos na home:", err);
-          }
-        } else {
-          document.querySelectorAll(".btn-favorito").forEach((btn) => {
-            btn.addEventListener("click", () => {
-              mostrarModalPadrao(
-                "🔒",
-                "Login necessário",
-                "Você precisa estar logado para salvar livros na lista de desejos.",
-                "login.html",
-                "Ir para o login"
-              );
-            });
-          });
-        }
+        // Configurar botões de favoritos
+        configurarBotoesFavoritos(favoritos, ".btn-favorito");
       } else {
         mostrarMensagemErro(gridContainer, "Erro ao carregar livros.");
       }
@@ -139,70 +77,4 @@ function mostrarMensagemErro(container, mensagem) {
       <p>${mensagem}</p>
     </div>
   `;
-}
-
-function showToast(message, type = "info", duration = 3000) {
-  const toast = document.createElement("div");
-  toast.classList.add("toast", type);
-
-  const icons = {
-    info: "info-circle",
-    success: "check-circle",
-    error: "exclamation-circle",
-    warning: "exclamation-triangle",
-  };
-
-  const icon = icons[type] || "info-circle";
-
-  toast.innerHTML = `
-    <i class="fas fa-${icon} toast-icon"></i>
-    <span class="toast-message">${message}</span>
-    <button class="toast-close">&times;</button>
-  `;
-
-  let container = document.getElementById("toast-container");
-  if (!container) {
-    container = document.createElement("div");
-    container.id = "toast-container";
-    container.classList.add("toast-container");
-    document.body.appendChild(container);
-  }
-
-  container.appendChild(toast);
-
-  void toast.offsetWidth;
-  toast.classList.add("active");
-
-  let timeoutId = setTimeout(() => {
-    toast.classList.remove("active");
-    toast.classList.add("fadeOut");
-    toast.addEventListener("transitionend", () => toast.remove(), {
-      once: true,
-    });
-  }, duration);
-
-  toast.querySelector(".toast-close").addEventListener("click", () => {
-    clearTimeout(timeoutId);
-    toast.classList.remove("active");
-    toast.classList.add("fadeOut");
-    toast.addEventListener("transitionend", () => toast.remove(), {
-      once: true,
-    });
-  });
-
-  toast.addEventListener("mouseenter", () => {
-    clearTimeout(timeoutId);
-  });
-
-  toast.addEventListener("mouseleave", () => {
-    timeoutId = setTimeout(() => {
-      toast.classList.remove("active");
-      toast.classList.add("fadeOut");
-      toast.addEventListener("transitionend", () => toast.remove(), {
-        once: true,
-      });
-    }, duration);
-  });
-
-  return toast;
 }

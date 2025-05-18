@@ -1,5 +1,6 @@
 import { searchBooks } from "../api/livro.js";
 import { renderBooks, renderSkeletons } from "../utils/renderBooks.js";
+import { carregarListaDesejos, configurarBotoesFavoritos } from "../utils/wishlist-utils.js";
 
 const searchInput = document.querySelector(".main-nav-list input");
 const searchButton = document.querySelector(".main-nav-list button");
@@ -10,12 +11,6 @@ const modal = document.getElementById("cadastroModal");
 const modalTitle = document.getElementById("modal-title");
 const modalMessage = document.getElementById("modal-message");
 const modalClose = document.getElementById("modal-close");
-
-function abrirModal(titulo, mensagem) {
-  modalTitle.textContent = titulo;
-  modalMessage.textContent = mensagem;
-  modal.style.display = "flex";
-}
 
 // Função para fechar o modal
 function fecharModal() {
@@ -30,6 +25,7 @@ if (searchButton) {
 } else {
   console.warn("Elemento 'searchButton' não encontrado no DOM.");
 }
+
 // Eventos para fechar o modal
 if (modalClose) {
   modalClose.addEventListener("click", fecharModal);
@@ -68,12 +64,16 @@ async function buscarLivros() {
   try {
     const response = await searchBooks(query, generoId);
     if (response.status === "success") {
-      renderBooks(gridContainer, response.data, (tituloLivro) => {
-        abrirModal(
-          "Aviso de Compra",
-          `O livro "${tituloLivro}" ainda não pode ser comprado. Esta funcionalidade está em desenvolvimento.`
-        );
-      });
+      const livros = response.data;
+
+      // Renderiza os livros
+      renderBooks(gridContainer, livros);
+
+      // Carregar lista de desejos
+      const favoritos = await carregarListaDesejos();
+
+      // Configurar botões de favoritos
+      configurarBotoesFavoritos(favoritos, ".btn-favorito");
     } else {
       gridContainer.innerHTML = `<p>${response.message}</p>`;
     }
@@ -118,7 +118,7 @@ function aplicarFiltroDePreco(reset = false) {
   const minPrice = reset ? 0 : parseInt(minSlider.value);
   const maxPrice = reset ? 200 : parseInt(maxSlider.value);
 
-  //atualiza os valores dos sliders e os números exibidos
+  // Atualiza os valores dos sliders e os números exibidos
   if (reset) {
     minSlider.value = 0;
     maxSlider.value = 200;
@@ -126,7 +126,7 @@ function aplicarFiltroDePreco(reset = false) {
   minValue.textContent = minPrice;
   maxValue.textContent = maxPrice;
 
-  //filtra os livros com base no preço
+  // Filtra os livros com base no preço
   const bookCards = document.querySelectorAll(".book-card");
   bookCards.forEach((card) => {
     const priceText = card
@@ -139,7 +139,8 @@ function aplicarFiltroDePreco(reset = false) {
       price >= minPrice && price <= maxPrice ? "flex" : reset ? "flex" : "none";
   });
 }
-// cria e mostra o filtro de preço
+
+// Cria e mostra o filtro de preço
 function showPriceFilter() {
   // Verifica se o gênero selecionado é "Todos os Gêneros"
   if (genreFilter.value === "" && searchInput.value.trim() === "") {
