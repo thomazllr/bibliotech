@@ -196,7 +196,7 @@ function adicionarEventosTabela() {
     button.addEventListener("click", (e) => {
       const row = e.target.closest("tr");
       const bookId = row.querySelector("td").textContent.trim();
-      window.location.href = `/bibliotech/view/detalhes-livro.html?id=${bookId}`;
+      window.location.href = `detalhes-livro.html?id=${bookId}`;
     });
   });
 }

@@ -43,7 +43,7 @@ if (loginForm) {
     try {
       const response = await login(email, senha);
       if (response.status === "success") {
-        window.location.href = "../../../bibliotech/view/home.html";
+        window.location.href = "home.html";
       } else {
         errorMessage.textContent = "Email ou senha incorretos. Tente novamente.";
         errorMessage.style.display = "block";
@@ -85,7 +85,7 @@ if (cadastroForm) {
     try {
       const response = await cadastrarUsuario(nome, email, senha);
       if (response.status === "success") {
-        window.location.href = "../../../bibliotech/view/login.html?cadastro=success";
+        window.location.href = "login.html?cadastro=success";
       } else {
         errorMessage.textContent = response.message;
         errorMessage.style.display = "block";
