@@ -4,6 +4,7 @@ import {
   removerDoCarrinho,
   atualizarQuantidadeNoServidor,
 } from "../api/carrinho.js";
+import { mostrarModalPadrao } from "../utils/modal-utils.js";
 
 let userId = null;
 
@@ -161,16 +162,13 @@ export function atualizarResumoCarrinho() {
 
     subtotal += preco * quantidade;
   });
-
+  
   if (subtotal === 0) {
     textoFrete = "R$ 0,00";
     frete = 0;
-  } else if (subtotal > 100) {
-    textoFrete = "GRÁTIS";
-    frete = 0;
   } else {
-    textoFrete = "R$ 24,99";
-    frete = 24.99;
+    frete = 24.99; 
+    textoFrete = `R$ ${frete.toFixed(2).replace(".", ",")}`;
   }
 
   const total = subtotal + frete;
@@ -178,4 +176,28 @@ export function atualizarResumoCarrinho() {
   subtotalEl.textContent = subtotal.toFixed(2).replace(".", ",");
   freteEl.textContent = textoFrete;
   totalEl.textContent = total.toFixed(2).replace(".", ",");
+}
+
+const btnFinalizar = document.getElementById("btnFinalizar");
+
+if (btnFinalizar) {
+  btnFinalizar.addEventListener("click", async () => {
+    // Verificar se o carrinho não está vazio antes de redirecionar
+    const container = document.getElementById("cart-items-container");
+    let itemCount = 0;
+    if (container) {
+        const items = container.querySelectorAll(".cart-item");
+        itemCount = items.length;
+    }
+
+    if (itemCount === 0) {
+      mostrarModalPadrao(
+        "⚠️",
+        "Carrinho Vazio",
+        "Seu carrinho está vazio. Adicione itens antes de finalizar.",
+        "carrinho.html"
+      );
+    }
+    window.location.href = "finalizar.html";
+  });
 }

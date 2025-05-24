@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Finalizar Pedido - BiblioTech</title>
+    <link rel="icon" href="../public/images/favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="../public/css/main.css" />
+    <link rel="stylesheet" href="../public/css/page/finalizacao.css" />
+  </head>
+  <body>
+    <header class="header">
+      <a href="home.html" class="logo heading-primary">BiblioTech</a>
+
+      <div class="mobile-nav-toggle">
+        <span class="hamburger">&#9776;</span>
+      </div>
+
+      <nav class="main-nav">
+        <ul class="main-nav-list">
+          <!-- Select para filtrar por gêneros -->
+          <li>
+            <select id="filter-genres" class="filter-genres">
+              <option value="">Todos os Gêneros</option>
+            </select>
+          </li>
+
+          <li><input type="text" placeholder="Pesquisar Livro..." /></li>
+          <li><button class="btn">Buscar</button></li>
+          <li>
+            <a href="generos.html" class="main-nav-link navegacao">Gêneros</a>
+          </li>
+          <li><a href="#" class="main-nav-link navegacao">Catálogo</a></li>
+
+          <li>
+            <a href="carrinho.html" id="icart" class="main-nav-link cart-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="9" cy="21" r="1"></circle>
+                <circle cx="20" cy="21" r="1"></circle>
+                <path
+                  d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
+                ></path>
+              </svg>
+            </a>
+          </li>
+
+          <!-- Botões visíveis apenas se o admin estiver logado -->
+          <li id="btnPainelAdmin" style="display: none">
+            <a href="admin.html" class="main-nav-link">Painel Admin.</a>
+          </li>
+
+          <div class="dropdown">
+            <button class="dropdown-toggle profile-button" id="btnPerfil">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="icon-profile"
+              >
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+            </button>
+            <div class="dropdown-menu">
+              <a href="perfil.html" class="dropdown-item" id="btnPerfil"
+                >Meu Perfil</a
+              >
+              <a href="#" class="dropdown-item" id="btnLogout">Logout</a>
+            </div>
+          </div>
+
+          <!-- Botões visíveis quando o admin NÃO estiver logado -->
+          <li id="btnLogin">
+            <a href="login.html" class="main-nav-link nav-cta login">Login</a>
+          </li>
+          <li id="btnCadastro">
+            <a
+              href="cadastro-usuario.html"
+              class="main-nav-link nav-cta cadastro"
+              >Cadastro</a
+            >
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="main-content checkout-page">
+      <h1 class="checkout-title">Finalizar Pedido</h1>
+      <div class="checkout-container">
+        <section class="checkout-form">
+          <h2>Endereço de Entrega</h2>
+          <form id="checkout-address-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="endereco">Endereço</label>
+                <input
+                  type="text"
+                  id="endereco"
+                  name="endereco"
+                  class="input-finalizacao"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="numero">Número</label>
+                <input
+                  type="text"
+                  id="numero"
+                  name="numero"
+                  class="input-finalizacao"
+                  required
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="complemento">Complemento</label>
+              <input
+                type="text"
+                id="complemento"
+                name="complemento"
+                class="input-finalizacao"
+              />
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="bairro">Bairro</label>
+                <input
+                  type="text"
+                  id="bairro"
+                  name="bairro"
+                  class="input-finalizacao"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="cidade">Cidade</label>
+                <input
+                  type="text"
+                  id="cidade"
+                  name="cidade"
+                  class="input-finalizacao"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="estado">Estado</label>
+                <input
+                  type="text"
+                  id="estado"
+                  name="estado"
+                  maxlength="2"
+                  class="input-finalizacao"
+                  required
+                />
+              </div>
+            </div>
+          </form>
+
+          <h2>Forma de Pagamento</h2>
+          <form id="checkout-payment-form">
+            <div class="payment-options">
+              <div class="payment-option">
+                <input
+                  type="radio"
+                  id="cartao"
+                  name="payment"
+                  value="cartao"
+                  checked
+                />
+                <label for="cartao">Cartão de Crédito</label>
+              </div>
+              <div class="payment-option">
+                <input type="radio" id="boleto" name="payment" value="boleto" />
+                <label for="boleto">Boleto Bancário</label>
+              </div>
+              <div class="payment-option">
+                <input type="radio" id="pix" name="payment" value="pix" />
+                <label for="pix">PIX</label>
+              </div>
+            </div>
+
+            <div id="cartao-form" class="payment-form active">
+              <div class="form-group">
+                <label for="card-number">Número do Cartão</label>
+                <input
+                  type="text"
+                  id="card-number"
+                  maxlength="19"
+                  class="input-finalizacao"
+                  required
+                />
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="card-name">Nome no Cartão</label>
+                  <input
+                    type="text"
+                    id="card-name"
+                    class="input-finalizacao"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="card-expiry">Validade (MM/AA)</label>
+                  <input
+                    type="text"
+                    id="card-expiry"
+                    maxlength="5"
+                    class="input-finalizacao"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="card-cvv">CVV</label>
+                  <input
+                    type="text"
+                    id="card-cvv"
+                    maxlength="3"
+                    class="input-finalizacao"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="parcelas">Parcelas</label>
+                <select id="parcelas" class="input-finalizacao"></select>
+              </div>
+            </div>
+
+            <div id="boleto-form" class="payment-form" style="display: none">
+              <p>
+                Um boleto será gerado após a confirmação do pedido e enviado
+                para seu e-mail.
+              </p>
+            </div>
+
+            <div id="pix-form" class="payment-form" style="display: none">
+              <p>Escaneie o QR Code abaixo para pagar:</p>
+              <img
+                src="https://user-images.githubusercontent.com/25679721/114888298-b9ea0680-9e26-11eb-8b90-cd2a61a4cfbf.png"
+                alt="QR Code PIX"
+                style="max-width: 180px"
+              />
+            </div>
+          </form>
+        </section>
+
+        <section class="order-summary">
+          <h2>Resumo do Pedido</h2>
+          <div id="order-items" class="order-items"></div>
+          <div class="order-totals">
+            <p>
+              Produtos: <span>R$ <span id="subtotal">0,00</span></span>
+            </p>
+            <p>
+              Frete: <span><span id="frete">0,00</span></span>
+            </p>
+            <p class="total">
+              Total: <span>R$ <span id="total">0,00</span></span>
+            </p>
+          </div>
+          <button id="confirm-order-final" class="btn-confirmar btn-loading">
+            Confirmar Pedido
+          </button>
+          <a href="carrinho.html" class="voltar-carrinho">Voltar ao Carrinho</a>
+        </section>
+      </div>
+    </main>
+
+    <footer>© 2025 - Todos os direitos reservados.</footer>
+
+    <script type="module" src="../public/js/pages/search-books.js"></script>
+    <script type="module" src="../public/js/status.js"></script>
+    <script type="module" src="../public/js/profile-menu.js"></script>
+    <script type="module" src="../public/js/pages/pedido.js"></script>
+  </body>
+</html>

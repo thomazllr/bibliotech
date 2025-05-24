@@ -75,4 +75,15 @@ class CarrinhoRepository extends BaseRepository
 
         return $itens;
     }
+
+    public function limparCarrinho(int $usuarioId): bool
+    {
+        $sql = "DELETE FROM carrinho WHERE usuario_id = :usuario_id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(':usuario_id', $usuarioId, PDO::PARAM_INT);
+        $result = $stmt->execute();
+        $stmt->closeCursor();
+
+        return $result;
+    }
 }
