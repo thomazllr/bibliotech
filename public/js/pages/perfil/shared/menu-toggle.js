@@ -13,7 +13,12 @@ export function setupMenuToggle(callback) {
         document.querySelectorAll(".profile-content").forEach(s => {
           s.classList.add("hidden");
         });
-        document.getElementById(`section-${sectionId}`).classList.remove("hidden");
+        const sectionEl = document.getElementById(`section-${sectionId}`);
+        if (sectionEl) {
+          sectionEl.classList.remove("hidden");
+        } else {
+          console.warn(`Seção não encontrada: section-${sectionId}`);
+        }
         
         // Callback para inicialização sob demanda
         if (typeof callback === 'function') {
@@ -21,4 +26,4 @@ export function setupMenuToggle(callback) {
         }
       });
     });
-  }
+}

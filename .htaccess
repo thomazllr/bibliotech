@@ -12,7 +12,7 @@ RewriteRule ^/?$ view/home.html [L]
 RewriteRule ^(home|login|cadastro-usuario|carrinho|generos|admin|detalhes-livro|cadastrar-livros)\.html$ view/$1.html [L]
 
 # API endpoints - Send directly to public/index.php
-RewriteRule ^(generos|usuarios|livros|editoras|desejos|carrinho|login|logout|session|auth)/?(.*)$ public/index.php [L,QSA]
+RewriteRule ^(generos|usuarios|livros|editoras|desejos|carrinho|login|logout|session|auth|pedido)/?(.*)$ public/index.php [L,QSA]
 
 # Allow direct access to view/ directory
 RewriteRule ^view/ - [L]

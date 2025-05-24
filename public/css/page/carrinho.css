@@ -149,16 +149,22 @@
 
 /* Botão finalizar compra */
 .btn-finalizar {
-  display: block;
-  margin: 2rem auto 0 auto;
-  background-color: #1a73e8;
+  margin: 2rem auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: fit-content;
+  background-color: #007bff;
   color: white;
-  padding: 1.2rem 3rem;
   border: none;
-  border-radius: 0.6rem;
-  font-size: 1.6rem;
+  padding: 10px 25px;
+  font-size: 1.5rem;
+  font-weight: 500;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.2s ease;
+  position: relative; 
 }
 
 .btn-finalizar:hover {

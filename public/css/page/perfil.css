@@ -1,3 +1,202 @@
+.order-item.skeleton .skeleton-box {
+  display: inline-block;
+  background: linear-gradient(90deg, #ececec 25%, #f5f5f5 50%, #ececec 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.2s infinite;
+  border-radius: 4px;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+
+/* Estilos para a seção de pedidos */
+.order-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.order-item {
+  border: 1px solid #eaeaea;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.order-info {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.order-id {
+  font-weight: 600;
+  font-size: 1.6rem;
+  color: #333;
+}
+
+.order-date {
+  color: #777;
+  font-size: 1.4rem;
+}
+
+.order-status {
+  padding: 0.6rem 1.2rem;
+  border-radius: 20px;
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.order-status.delivered {
+  background-color: #e6f7ee;
+  color: #0a8043;
+}
+
+.order-status.processing {
+  background-color: #fff3e0;
+  color: #e65100;
+}
+
+.order-status.shipped {
+  background-color: #e3f2fd;
+  color: #0d47a1;
+}
+
+.order-books {
+  padding: 2rem;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.order-book {
+  display: flex;
+  gap: 2rem;
+  padding-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px dashed #eaeaea;
+}
+
+.order-book:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.order-book-cover {
+  width: 8rem;
+  height: 12rem;
+  object-fit: cover;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.order-book-info {
+  flex: 1;
+}
+
+.order-book-info h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.6rem;
+  color: #333;
+}
+
+.order-book-info p {
+  margin: 0 0 1rem 0;
+  color: #666;
+  font-size: 1.4rem;
+}
+
+.order-book-price {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #004d88;
+}
+
+.order-quantity {
+  font-size: 1.3rem;
+  color: #777;
+  margin-left: 0.5rem;
+}
+
+.order-summary {
+  padding: 1.5rem 2rem;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+  color: #555;
+}
+
+.summary-item.total {
+  font-weight: 600;
+  font-size: 1.6rem;
+  color: #333;
+}
+
+.summary-divider {
+  height: 1px;
+  background-color: #ddd;
+  margin: 1rem 0;
+}
+
+.order-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+}
+
+.tracking-info {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  font-size: 1.4rem;
+}
+
+.tracking-label {
+  color: #777;
+}
+
+.tracking-number {
+  font-weight: 500;
+  color: #333;
+}
+
+.btn-small {
+  padding: 0.8rem 1.5rem;
+  background-color: #004d88;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-small:hover {
+  background-color: #003b6f;
+}
+
 /* Layout principal */
 .perfil-layout {
   display: grid;

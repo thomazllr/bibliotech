@@ -463,6 +463,94 @@ textarea {
 }
 
 /* Responsividade */
+@media (max-height: 700px) {
+  .modal-content {
+    max-height: 90vh;
+    overflow-y: auto;
+    overflow-x: hidden; 
+    width: 92%; 
+    padding: 1.5rem; 
+  }
+  
+  .form-group {
+    margin-bottom: 0.8rem;
+  }
+  
+  .form-livro {
+    gap: 0.8rem;
+  }
+  
+  .modal-content h2 {
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+  }
+  
+  /* Reduz tamanho de elementos dentro do formulÃ¡rio */
+  .form-group label {
+    font-size: 1.3rem;
+    margin-bottom: 0.3rem;
+  }
+  
+  input[type="text"],
+  input[type="file"],
+  select,
+  textarea {
+    padding: 0.6rem;
+    font-size: 1.3rem;
+    padding-left: 3.2rem; 
+    max-width: 100%; 
+    box-sizing: border-box; 
+  }
+  
+  .icon {
+    left: 8px;
+    font-size: 1.5rem;
+  }
+  
+  textarea {
+    height: 70px;
+    padding-top: 2.5rem; 
+  }
+  
+  .form-actions {
+    margin-top: 0.8rem;
+  }
+  
+  .btn.limpar, 
+  .btn.salvar {
+    padding: 0.6rem 1.2rem;
+    font-size: 1.3rem;
+  }
+}
+
+/* Ajustes adicionais para telas muito estreitas */
+@media (max-width: 480px) {
+  .modal-content {
+    width: 95%;
+    padding: 1.2rem;
+  }
+  
+  .form-row {
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  
+  .input-with-icon input,
+  .input-with-icon select,
+  .input-with-icon textarea {
+    padding-left: 3rem;
+  }
+  
+  .icon {
+    left: 6px;
+    font-size: 1.4rem;
+  }
+  
+  .close-btn {
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+}
 @media (max-width: 768px) {
   .form-row {
     flex-direction: column;
