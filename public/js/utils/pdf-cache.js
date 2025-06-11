@@ -227,18 +227,4 @@ export class PDFCache {
       return null;
     }
   }
-
-  // Clear cache for specific theme
-  clearThemeCache(pdfId, theme) {
-    if (!this.pageCache) return;
-    
-    const keysToDelete = [];
-    for (const [key, value] of this.pageCache.entries()) {
-      if (value.pdfId === pdfId && value.theme === theme) {
-        keysToDelete.push(key);
-      }
-    }
-    
-    keysToDelete.forEach(key => this.pageCache.delete(key));
-  }
 } 

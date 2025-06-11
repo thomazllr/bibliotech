@@ -504,12 +504,6 @@ export class PDFViewer {
     }
     
     this.updateThemeIcons();
-    
-    // Force re-render if PDF is loaded and theme actually changed
-    if (this.pdfDoc && previousTheme !== theme) {
-      this.clearThemeCache(previousTheme);
-      this.forceRerenderCurrentView();
-    }
   }
 
   cycleTheme() {
@@ -523,8 +517,6 @@ export class PDFViewer {
 
     // 💡 Clear cache and re-render pages instantly so the theme change is visible immediately
     if (this.pdfDoc) {
-      // Clear cached pages for the previous theme to force fresh rendering
-      this.clearThemeCache(previousTheme);
       
       if (this.viewMode === 'page') {
         // Force re-render current page by bypassing cache
@@ -542,12 +534,6 @@ export class PDFViewer {
     }
   }
 
-  // Helper method to clear cache for a specific theme
-  clearThemeCache(theme) {
-    if (this.cache && this.currentPDFId) {
-      this.cache.clearThemeCache(this.currentPDFId, theme);
-    }
-  }
 
   updateThemeButtons() {
     const themeButtons = document.querySelectorAll('.theme-btn');
