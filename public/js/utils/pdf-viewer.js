@@ -855,6 +855,17 @@ export class PDFViewer {
       this.pdfDoc = await loadingTask.promise;
       this.pageCount = this.pdfDoc.numPages;
       
+      // Handle URL-based page navigation early (from "Continue Reading" buttons)
+      // This eliminates the delay by setting the target page before initial render
+      if (window.targetPage) {
+        console.log('Setting initial page from URL target:', window.targetPage);
+        if (window.targetPage >= 1 && window.targetPage <= this.pageCount) {
+          this.pageNum = window.targetPage;
+        }
+        // Clear the target page
+        delete window.targetPage;
+      }
+      
       // Initialize Table of Contents
       this.tableOfContents = new PDFTableOfContents(this.pdfDoc, this);
       
@@ -897,15 +908,8 @@ export class PDFViewer {
         await this.readingSession.init();
         this.readingSession.updateProgress(this.pageNum, this.pageCount);
         
-        // Handle URL-based page navigation (from "Continue Reading" buttons)
-        if (window.targetPage) {
-          console.log('Navigating to target page from URL:', window.targetPage);
-          if (window.targetPage >= 1 && window.targetPage <= this.pageCount) {
-            this.goToPage(window.targetPage);
-          }
-          // Clear the target page
-          delete window.targetPage;
-        }
+        // Note: URL-based navigation now happens earlier in the process
+        // No delay as the page is already set before rendering
       }
       
     } catch (error) {
