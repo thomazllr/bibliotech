@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BiblioTech - Sua Livraria Digital</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="landing-page.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <nav class="nav container">
+        <a href="home.html" class="logo">BiblioTech</a>
+        <ul class="nav-links">
+          <li><a href="#funcionalidades">Funcionalidades</a></li>
+          <li><a href="#sobre">Sobre</a></li>
+          <li><a href="#contato">Contato</a></li>
+          <li><a href="home.html" class="btn-primary">Começar Agora</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <h1>Sua Biblioteca Digital Completa</h1>
+          <p>
+            Descubra milhares de livros digitais e físicos em uma plataforma
+            moderna e intuitiva. Leia, compre e organize sua biblioteca pessoal
+            de forma simples e acessível.
+          </p>
+          <div class="hero-buttons">
+            <a
+              href="cadastro-usuario.html"
+              class="btn-primary"
+              onclick="handleCadastro(this)"
+              >Criar Conta Grátis</a
+            >
+            <a href="#funcionalidades" class="btn-secondary"
+              >Explorar Funcionalidades</a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="funcionalidades">
+      <div class="container">
+        <h2>Por que escolher o BiblioTech?</h2>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-book"></i>
+            </div>
+            <h3>Catálogo Extenso</h3>
+            <p>
+              Milhares de títulos digitais e físicos organizados por categorias,
+              com sistema de busca avançado e filtros inteligentes.
+            </p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-tablet-alt"></i>
+            </div>
+            <h3>Leitor Integrado</h3>
+            <p>
+              Leia seus eBooks diretamente na plataforma com nosso leitor
+              otimizado, salvando automaticamente seu progresso.
+            </p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-shopping-cart"></i>
+            </div>
+            <h3>Compra Simplificada</h3>
+            <p>
+              Carrinho inteligente que salva suas preferências, processo de
+              checkout rápido e seguro.
+            </p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-bookmark"></i>
+            </div>
+            <h3>Biblioteca Pessoal</h3>
+            <p>
+              Organize todos os seus livros adquiridos em uma biblioteca digital
+              personalizada e acessível a qualquer momento.
+            </p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-heart"></i>
+            </div>
+            <h3>Lista de Desejos</h3>
+            <p>
+              Salve livros para comprar depois e acompanhe lançamentos dos seus
+              autores favoritos.
+            </p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-user"></i>
+            </div>
+            <h3>Perfil Personalizado</h3>
+            <p>
+              Gerencie suas informações, acompanhe seu histórico de compras e
+              preferências de leitura.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+      <div class="container">
+        <h2>Pronto para começar sua jornada literária?</h2>
+        <p>
+          Junte-se a milhares de leitores que já descobriram a praticidade do
+          BiblioTech
+        </p>
+        <a
+          href="cadastro-usuario.html"
+          class="btn-primary"
+          onclick="handleCadastro(this)"
+          >Criar Conta Gratuita</a
+        >
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contato">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3>BiblioTech</h3>
+            <p>
+              Sua livraria digital completa, desenvolvida pela Universidade
+              Federal do Tocantins como projeto de Engenharia de Software.
+            </p>
+          </div>
+          <div class="footer-section">
+            <h3>Links Rápidos</h3>
+            <ul>
+              <li><a href="#funcionalidades">Funcionalidades</a></li>
+              <li><a href="home.html">Catálogo</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Conta</h3>
+            <ul>
+              <li><a href="login.html">Login</a></li>
+              <li><a href="cadastro-usuario.html">Cadastro</a></li>
+            </ul>
+          </div>
+          <div class="footer-section" id="sobre">
+            <h3>Projeto Acadêmico</h3>
+            <p><strong>Universidade:</strong> UFT</p>
+            <p><strong>Curso:</strong> Ciência da Computação</p>
+            <p><strong>Disciplina:</strong> Engenharia de Software</p>
+            <p><strong>Professor:</strong> Edeilson Milhomem</p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>
+            &copy; 2025 BiblioTech - Projeto Acadêmico UFT. Todos os direitos
+            reservados.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="landing-page.js"></script>
+  </body>
+</html>
